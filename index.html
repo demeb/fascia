@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FasiAI — What's your home worth? · Seattle / WA valuations</title>
+<meta name="description" content="Instant home-value estimates for the Seattle metro, learned from 4,000+ real King County sales. Enter your home's details, get a defensible price.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23C9A227'/><path d='M8 15l8-6 8 6v8a1 1 0 01-1 1h-4v-6h-6v6H9a1 1 0 01-1-1z' fill='%2317120A'/></svg>">
+</head>
+<body data-palette="#B58F1D">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="i-home"><path d="M3 10.2 12 3l9 7.2V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></g>
+    <g id="i-arrow-right"><path d="M5 12h14M13 6l6 6-6 6"/></g>
+    <g id="i-arrow-up"><path d="M12 19V5M5 12l7-7 7 7"/></g>
+    <g id="i-arrow-down"><path d="M12 5v14M19 12l-7 7-7-7"/></g>
+    <g id="i-sparkles"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></g>
+    <g id="i-message"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-3.2-.5L3 21l1.6-4.6A8.2 8.2 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.5a8.4 8.4 0 0 1 9 8z"/></g>
+    <g id="i-pin"><path d="M20 10c0 5.5-8 12-8 12s-8-6.5-8-12a8 8 0 1 1 16 0z"/><circle cx="12" cy="10" r="2.8"/></g>
+    <g id="i-ruler"><path d="M16.5 2.9 21.1 7.5a1 1 0 0 1 0 1.4L8.9 21.1a1 1 0 0 1-1.4 0L2.9 16.5a1 1 0 0 1 0-1.4L15.1 2.9a1 1 0 0 1 1.4 0z"/><path d="m7 13 2 2m2-6 2 2m2-6 2 2"/></g>
+    <g id="i-bed"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 14h18M3 18v2M21 18v2M7 10V8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></g>
+    <g id="i-bath"><path d="M4 12V6a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2M3 12h18v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z M6 19l-1 2M18 19l1 2"/></g>
+    <g id="i-tree"><path d="M12 3l5 7h-3l4 6H6l4-6H7z M12 16v5"/></g>
+    <g id="i-layers"><path d="m12 2 9 5-9 5-9-5z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/></g>
+    <g id="i-wave"><path d="M2 8c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2M2 14c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2 2 2 4 2"/></g>
+    <g id="i-eye"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></g>
+    <g id="i-calendar"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></g>
+    <g id="i-check"><path d="m4 12.5 5 5L20 6.5"/></g>
+    <g id="i-x"><path d="M6 6l12 12M18 6 6 18"/></g>
+    <g id="i-send"><path d="M21 3 3 10.5l7 3 3 7z"/><path d="m10 13.5 11-10.5"/></g>
+    <g id="i-lock"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></g>
+    <g id="i-trend"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></g>
+    <g id="i-sliders"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h10M18 18h2"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="16" cy="18" r="2"/></g>
+    <g id="i-bolt"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></g>
+    <g id="i-info"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4.5M12 8h.01"/></g>
+    <g id="i-shield"><path d="M12 3l7.5 3v5.5c0 4.5-3.2 8.4-7.5 9.5-4.3-1.1-7.5-5-7.5-9.5V6z"/><path d="m9.5 12 1.8 1.8 3.5-3.6"/></g>
+    <g id="i-chart"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></g>
+    <g id="i-target"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></g>
+    <g id="i-facebook"><path d="M14 8.5V7a1.5 1.5 0 0 1 1.5-1.5H17V2.5h-2.5A4.5 4.5 0 0 0 10 7v1.5H7.5V12H10v9.5h4V12h2.6l.4-3.5z"/></g>
+  </defs>
+</svg>
+
+<nav class="nav" id="nav">
+  <div class="container nav-in">
+    <a class="brand" href="#top">
+      <span class="brand-mark"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-home"/></svg></span>
+      <span class="brand-name">Fasi<b>AI</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#estimator">Valuation</a>
+      <a href="#market">Market</a>
+      <a href="#boost">Boost</a>
+      <button class="btn btn-primary btn-sm" data-scroll="#estimator">
+        Value my home
+        <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container hero-in">
+    <div class="hero-copy">
+      <span class="eyebrow rv">
+        <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg>
+        Home valuations · Seattle metro
+      </span>
+      <h1 class="rv rv-d1">What's your home<br>really <em>worth?</em></h1>
+      <p class="lede rv rv-d2">FasiAI estimates your home's value from <b id="hero-rows">4,000+</b> real King County sales — Seattle, Bellevue, Redmond and 40 more cities. Enter the details that actually move price and get a number you can defend, in seconds.</p>
+      <div class="hero-cta rv rv-d2">
+        <button class="btn btn-primary btn-lg" data-scroll="#estimator">
+          Value my home
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-arrow-right"/></svg>
+        </button>
+        <button class="btn btn-ghost btn-lg" id="hero-chat">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-message"/></svg>
+          Ask the agent
+        </button>
+      </div>
+      <div class="trust rv rv-d3">
+        <div class="trust-label">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="width:.9rem;height:.9rem"><use href="#i-shield"/></svg>
+          Model accuracy, measured on real sales
+        </div>
+        <div class="trust-row" id="trust-row"></div>
+      </div>
+    </div>
+
+    <div class="viz rv rv-d2">
+      <div class="viz-glow"></div>
+      <div class="viz-card">
+        <div class="viz-top">
+          <div>
+            <div class="viz-addr">Seattle, WA</div>
+            <div class="viz-sub">1,840 sqft · 3 bd · 2 ba · good condition</div>
+          </div>
+          <span class="viz-live"><i class="dot-live"></i> Live model</span>
+        </div>
+        <div class="viz-price num" data-count="574000" data-prefix="$">$0</div>
+        <div class="viz-range">Likely range $494,000 — $654,000</div>
+        <svg class="viz-spark" viewBox="0 0 280 62" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#B58F1D" stop-opacity="0.35"/><stop offset="100%" stop-color="#B58F1D" stop-opacity="0"/>
+          </linearGradient></defs>
+          <path class="fill" d="M0,50 L40,46 L80,44 L120,38 L160,30 L200,26 L240,18 L280,12 L280,62 L0,62 Z"/>
+          <path d="M0,50 L40,46 L80,44 L120,38 L160,30 L200,26 L240,18 L280,12"/>
+        </svg>
+        <div class="viz-rows">
+          <div class="viz-row"><span><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-ruler"/></svg> Price per sqft</span><b>$312</b></div>
+          <div class="viz-row"><span><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-shield"/></svg> Confidence</span><b>86%</b></div>
+          <div class="viz-row"><span><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-target"/></svg> vs. local sales</span><b>62nd pctile</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="section section-alt" id="how">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow">Method</span>
+      <h2>A price learned from real sales, not a guess.</h2>
+    </div>
+    <div class="steps rv rv-d1">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-sliders"/></svg></div>
+        <h4>Enter what matters</h4>
+        <p>City, size, beds, baths, condition, view, waterfront, lot, year built. Only the features that actually move price — nothing busywork.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-chart"/></svg></div>
+        <h4>The model weighs it</h4>
+        <p>A regression trained on 4,000+ King County sales sets each city's price-per-sqft and how much every feature adds or subtracts.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-message"/></svg></div>
+        <h4>See it and ask why</h4>
+        <p>Get the number, a fair range, where it sits among local sales, and an agent that explains every line of the estimate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="estimator">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow">Valuation</span>
+      <h2>Tell us about the home.</h2>
+      <p class="lede">A dozen quick fields — every one of them genuinely affects the price in the data.</p>
+    </div>
+
+    <form id="form" class="form">
+      <div class="card rv">
+        <div class="fset-h"><span class="fset-n">1</span><h3>The home</h3></div>
+        <div class="g3">
+          <label class="field"><span class="lbl">City</span><select id="f-city"></select></label>
+          <label class="field"><span class="lbl">Living area (sqft)</span><input type="number" id="f-sqft" min="200" max="15000" value="1840" required></label>
+          <label class="field"><span class="lbl">Lot size (sqft)</span><input type="number" id="f-lot" min="0" max="500000" value="7500"></label>
+          <label class="field"><span class="lbl">Bedrooms</span><input type="number" id="f-beds" min="0" max="12" step="1" value="3"></label>
+          <label class="field"><span class="lbl">Bathrooms</span><input type="number" id="f-baths" min="0" max="12" step="0.25" value="2"></label>
+          <label class="field"><span class="lbl">Year built</span><input type="number" id="f-year" min="1900" max="2025" value="1985"></label>
+          <label class="field"><span class="lbl">Floors</span>
+            <select id="f-floors">
+              <option value="1">1</option>
+              <option value="1.5" selected>1.5</option>
+              <option value="2">2</option>
+              <option value="2.5">2.5</option>
+              <option value="3">3</option>
+              <option value="3.5">3.5</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="card rv">
+        <div class="fset-h"><span class="fset-n">2</span><h3>Quality &amp; features</h3></div>
+        <div class="g3">
+          <label class="field"><span class="lbl">Condition</span><select id="f-condition"></select></label>
+          <label class="field"><span class="lbl">View quality</span><select id="f-view"></select></label>
+          <div class="field">
+            <span class="lbl">Special features</span>
+            <div class="toggles">
+              <label class="tog"><input type="checkbox" id="f-waterfront"><span class="tog-box"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-wave"/></svg></span>Waterfront</label>
+              <label class="tog"><input type="checkbox" id="f-basement"><span class="tog-box"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-layers"/></svg></span>Basement</label>
+              <label class="tog"><input type="checkbox" id="f-renovated"><span class="tog-box"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-check"/></svg></span>Renovated</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-foot rv">
+        <button type="submit" class="btn btn-primary btn-lg">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-bolt"/></svg>
+          Estimate my home's value
+        </button>
+        <small><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-lock"/></svg> Runs on your device · nothing uploaded · no account</small>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="section section-alt" id="results" hidden>
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow">Estimate</span>
+      <h2 id="res-title">Your home's value</h2>
+      <p class="lede" id="res-sub"></p>
+      <div class="data-badge" id="data-badge" hidden></div>
+    </div>
+
+    <div class="res-grid">
+      <div class="card res-hero rv" id="res-hero">
+        <div class="res-label">Estimated market value</div>
+        <div class="res-price num" id="price-main" data-prefix="$">$0</div>
+        <div class="res-alt-cur" id="price-psf"></div>
+        <div class="band">
+          <div class="band-track"><div class="band-fill"></div><div class="band-mark"></div></div>
+          <div class="band-lbl"><span id="range-low"></span><em>likely range</em><span id="range-high"></span></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-k">Per sqft</div><div class="stat-v" id="s-psf"></div></div>
+          <div class="stat"><div class="stat-k">Confidence</div><div class="stat-v" id="s-conf"></div></div>
+          <div class="stat"><div class="stat-k">vs. local sales</div><div class="stat-v" id="s-pct"></div></div>
+        </div>
+        <div class="res-alt">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-info"/></svg>
+          <span id="res-alt-text"></span>
+        </div>
+      </div>
+
+      <div class="card rv rv-d1">
+        <div class="card-h">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-sliders"/></svg>
+          <h3>How we got there</h3>
+        </div>
+        <ul class="bd" id="bd"></ul>
+      </div>
+    </div>
+
+    <div class="res-grid-2">
+      <div class="card rv">
+        <div class="card-h">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-target"/></svg>
+          <h3 id="dist-title">Where your estimate sits</h3>
+        </div>
+        <div class="chart-box" id="dist-chart"></div>
+        <p class="chart-foot" id="dist-foot"></p>
+      </div>
+      <div class="card rv rv-d1">
+        <div class="card-h">
+          <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-pin"/></svg>
+          <h3>Comparable real sales</h3>
+        </div>
+        <div class="comps" id="comps"></div>
+      </div>
+    </div>
+
+    <div class="card ai-strip rv">
+      <div class="ai-strip-l">
+        <div class="ai-orb"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg></div>
+        <div>
+          <h4>Want to understand the number?</h4>
+          <p>Ask why it's priced this way, or what a renovation or extra bath would do.</p>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="res-chat">
+        <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-message"/></svg>
+        Open the agent
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="market">
+  <div class="container">
+    <div class="head-row rv" style="margin-bottom:44px">
+      <div class="head" style="margin:0">
+        <span class="eyebrow">Market overview</span>
+        <h2>The King County market, in real numbers.</h2>
+        <p class="lede">Everything below is computed live from the dataset — no invented figures.</p>
+      </div>
+      <span class="pill pill-live" id="mk-provenance"><span class="dot-live"></span>From real sales</span>
+    </div>
+
+    <div class="mk-facts" id="mk-facts"></div>
+
+    <div class="card rv">
+      <div class="card-h">
+        <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-chart"/></svg>
+        <h3>Median price per sqft by city</h3>
+      </div>
+      <div id="city-bars"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="boost">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow">Roadmap</span>
+      <h2>List it everywhere <span class="pill">Coming soon</span></h2>
+      <p class="lede">Once you're happy with the price, publish the listing — with your permission — to the sites buyers actually search, and keep them in sync when you adjust.</p>
+    </div>
+    <div class="boost rv rv-d1">
+      <div class="card boost-card"><div class="boost-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-home"/></svg></div><h4>Zillow</h4><p>Auto-post with an optimized listing</p><button class="btn btn-ghost btn-sm" disabled>Connect</button></div>
+      <div class="card boost-card"><div class="boost-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-pin"/></svg></div><h4>Redfin</h4><p>Price &amp; status kept in sync</p><button class="btn btn-ghost btn-sm" disabled>Connect</button></div>
+      <div class="card boost-card"><div class="boost-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-target"/></svg></div><h4>Realtor.com</h4><p>Reach buyers with agents</p><button class="btn btn-ghost btn-sm" disabled>Connect</button></div>
+      <div class="card boost-card"><div class="boost-ic"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-facebook"/></svg></div><h4>Facebook</h4><p>Marketplace &amp; local groups</p><button class="btn btn-ghost btn-sm" disabled>Connect</button></div>
+    </div>
+    <p class="boost-note">
+      <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-lock"/></svg>
+      Nothing is ever published without your explicit permission.
+    </p>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="#top">
+          <span class="brand-mark"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-home"/></svg></span>
+          <span class="brand-name">Fasi<b>AI</b></span>
+        </a>
+        <p>Home-value intelligence for the Seattle metro, learned from real King County sales.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="#estimator">Valuation</a><a href="#market">Market</a><a href="#boost">Boost</a><a href="#how">How it works</a>
+      </div>
+      <div class="foot-col">
+        <h5>Coverage</h5>
+        <a href="#estimator">Seattle</a><a href="#estimator">Bellevue</a><a href="#estimator">Redmond</a><a href="#estimator">+40 cities</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 FasiAI</span>
+      <span class="foot-warn">
+        <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-info"/></svg>
+        <span id="foot-disclaimer">Estimates from 2014–15 King County sales · for guidance, not an appraisal</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<button class="fab" id="fab" aria-label="Open the AI agent">
+  <span class="fab-ping"></span>
+  <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-message"/></svg>
+</button>
+
+<div class="chat" id="chat" hidden>
+  <div class="chat-head">
+    <div class="chat-av"><svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-sparkles"/></svg></div>
+    <div class="chat-id">
+      <b>FasiAI Agent</b>
+      <span><i class="dot-live"></i> Online · runs locally, costs nothing</span>
+    </div>
+    <button class="chat-x" id="chat-x" aria-label="Close chat">
+      <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-chips" id="chips">
+    <button data-q="Why this price?">Why this price?</button>
+    <button data-q="What if I renovate?">What if I renovate?</button>
+    <button data-q="What if I add a bathroom?">Add a bathroom?</button>
+    <button data-q="How accurate is this?">How accurate?</button>
+    <button data-q="What's the market like?">Market overview</button>
+  </div>
+  <form class="chat-form" id="chat-form">
+    <input type="text" id="chat-text" placeholder="Ask about your estimate…" autocomplete="off">
+    <button type="submit" class="chat-send" aria-label="Send">
+      <svg class="icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-send"/></svg>
+    </button>
+  </form>
+</div>
+
+<script src="js/model.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

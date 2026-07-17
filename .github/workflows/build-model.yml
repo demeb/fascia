@@ -1,0 +1,36 @@
+name: Rebuild model from dataset
+
+# The model is derived from data/source/usa_housing.csv. Whenever you update that
+# CSV (or the calibration script), this rebuilds data/model.json + listings.json
+# and commits them. Free — runs on GitHub's servers.
+on:
+  push:
+    paths:
+      - "data/source/**"
+      - "pipeline/calibrate_us.py"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rebuild model
+        run: python3 pipeline/calibrate_us.py
+      - name: Commit if changed
+        run: |
+          git config user.name "fasi-ai-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/model.json data/listings.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "chore: rebuild model from dataset"
+            git push
+          fi
